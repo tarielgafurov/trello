@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Form from "./Components/Form";
+import { useSelector } from "react-redux";
+import GlobalWindow from "./Components/Globalwindow";
+import TodoItem from "./Components/TodoItem";
 
 function App() {
+  const todos = useSelector((state) => state.userTrello.todos);
+  const isSecond = useSelector((state) => state.user.isSecond);
+  const setGlobalWindow = useSelector((state) => state.user.GlobalWindow);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isSecond && <Form />}
+
+      {setGlobalWindow && <GlobalWindow />}
+
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </div>
   );
 }
